@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/tracker-test/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+    <script type="module" crossorigin src="/tracker-test/assets/index-kq-Qrm1h.js"></script>
+    <link rel="stylesheet" crossorigin href="/tracker-test/assets/index-DiwrgTda.css">
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/tracker-test/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite + React</title>
-  <script type="module" crossorigin src="/tracker-test/assets/index-kq-Qrm1h.js"></script>
-  <link rel="stylesheet" crossorigin href="/tracker-test/assets/index-DiwrgTda.css">
-</head>
-
-<body>
-  <div id="root"></div>
-  <script src="https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js" async></script>
-  <script>
-    window.WonderPush = window.WonderPush || [];
-    WonderPush.push([
-      "init",
-      {
-        webKey: "9af89b488a5c9c86a33e598aff83fc22f7c738a68fbf6c2f7280fce11b4b126e",
-        // other initialization options
-      },
-    ]);
-  </script>
-  <script>
+  <body>
+    <div id="root"></div>
+    <script
+      src="https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js"
+      async
+    ></script>
+    <script>
+      window.WonderPush = window.WonderPush || [];
+      WonderPush.push([
+        "init",
+        {
+          webKey:
+            "9af89b488a5c9c86a33e598aff83fc22f7c738a68fbf6c2f7280fce11b4b126e",
+          // other initialization options
+        },
+      ]);
+    </script>
+    <!-- <script>
     document.addEventListener("DOMContentLoaded", function() {
       setTimeout(function() {
         // Create the modal container
@@ -62,9 +65,9 @@
           });
       }, 500);
     });
-  </script>
+  </script> -->
 
-  <!-- <script>
+    <!-- <script>
     function createPopup() {
       // Create the modal container
       const modal = document.createElement("div");
@@ -111,6 +114,5 @@
       event.returnValue = "";
     });
   </script> -->
-</body>
-
+  </body>
 </html>
