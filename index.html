@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/tracker-test/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + React</title>
+  <script type="module" crossorigin src="/tracker-test/assets/index-kq-Qrm1h.js"></script>
+  <link rel="stylesheet" crossorigin href="/tracker-test/assets/index-DiwrgTda.css">
+</head>
+
+<body>
+  <div id="root"></div>
+  <script src="https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js" async></script>
+  <script>
+    window.WonderPush = window.WonderPush || [];
+    WonderPush.push([
+      "init",
+      {
+        webKey: "9af89b488a5c9c86a33e598aff83fc22f7c738a68fbf6c2f7280fce11b4b126e",
+        // other initialization options
+      },
+    ]);
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      setTimeout(function() {
+        // Create the modal container
+        const modal = document.createElement("div");
+        modal.id = "popup-modal";
+        modal.innerHTML = `
+            <div class="modal-overlay" 
+              style="position:fixed;top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-color: rgba(0, 0, 0, 0.75);
+              display: flex;
+              align-items: center;
+              justify-content: center;">
+              <div class="modal-content" style="background: white;color: black;
+                padding: 20px;
+                border-radius: 4px;
+                text-align: center;
+                width: 300px;">
+                <h2>Hello, this is a modal!</h2>
+                <p>This modal appears 5ms after the page loads.</p>
+                <button id="close-modal" style="margin-top: 20px;" >Close</button>
+              </div>
+            </div>
+          `;
+
+        // Append the modal to the body
+        document.body.appendChild(modal);
+
+        // Add event listener to close the modal
+        document
+          .getElementById("close-modal")
+          .addEventListener("click", function() {
+            document.body.removeChild(modal);
+          });
+      }, 500);
+    });
+  </script>
+
+  <!-- <script>
+    function createPopup() {
+      // Create the modal container
+      const modal = document.createElement("div");
+      modal.id = "popup-modal";
+      modal.innerHTML = `
+        <div class="modal-overlay" 
+              style="position:fixed;top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-color: rgba(0, 0, 0, 0.75);
+              display: flex;
+              align-items: center;
+              justify-content: center;">
+              <div class="modal-content" style="background: white;color: black;
+                padding: 20px;
+                border-radius: 4px;
+                text-align: center;
+                width: 300px;">
+                <h2>Hello, this is a modal!</h2>
+                <p>This modal appears 5ms after the page loads.</p>
+                <button id="close-modal" style="margin-top: 20px;" >Close</button>
+              </div>
+            </div>
+      `;
+
+      // Append the modal to the body
+      document.body.appendChild(modal);
+
+      // Add event listener to close the modal
+      document
+        .getElementById("close-modal")
+        .addEventListener("click", function() {
+          document.body.removeChild(modal);
+        });
+    }
+
+    window.addEventListener("beforeunload", function(event) {
+      // Show the modal
+      createPopup();
+
+      // Show a generic confirmation message (this is browser-specific and can't be customized)
+      event.preventDefault();
+      event.returnValue = "";
+    });
+  </script> -->
+</body>
+
+</html>
