@@ -10,21 +10,51 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <script
+    <script type="text/javascript">
+      (function () {
+        window.sib = {
+          equeue: [],
+          client_key: "dhbfpsya71bcrariwhh0oqjn",
+        };
+        /* OPTIONAL: email for identify request*/
+        window.sib.email_id = "example@domain.com";
+        window.sib.popupWebKey =
+          "9af89b488a5c9c86a33e598aff83fc22f7c738a68fbf6c2f7280fce11b4b126e";
+        window.sendinblue = {};
+        for (
+          var j = ["track", "identify", "trackLink", "page"], i = 0;
+          i < j.length;
+          i++
+        ) {
+          (function (k) {
+            window.sendinblue[k] = function () {
+              var arg = Array.prototype.slice.call(arguments);
+              (
+                window.sib[k] ||
+                function () {
+                  var t = {};
+                  t[k] = arg;
+                  window.sib.equeue.push(t);
+                }
+              )(arg[0], arg[1], arg[2], arg[3]);
+            };
+          })(j[i]);
+        }
+        var n = document.createElement("script"),
+          i = document.getElementsByTagName("script")[0];
+        (n.type = "text/javascript"),
+          // (n.id = "sendinblue-js"),
+          (n.async = !0),
+          (n.src = "/tracker-test/tracker2.js"),
+          i.parentNode.insertBefore(n, i);
+        // window.sendinblue.page();
+      })();
+    </script>
+    <!-- <script
       src="https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js"
       async
-    ></script>
-    <script>
-      window.WonderPush = window.WonderPush || [];
-      WonderPush.push([
-        "init",
-        {
-          webKey:
-            "9af89b488a5c9c86a33e598aff83fc22f7c738a68fbf6c2f7280fce11b4b126e",
-          // other initialization options
-        },
-      ]);
-    </script>
+    ></script> -->
+
     <!-- <script>
     document.addEventListener("DOMContentLoaded", function() {
       setTimeout(function() {
