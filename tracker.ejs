@@ -9,7 +9,8 @@ window.sib.client_key !== '' && (function() {
             is_secure: '<%- is_secure %>',
             base_url: '<%- internal_base_url %>',
             custom_url_parsing: '<%- custom_url_parsing %>',
-            tracking_enabled: { track: '<%- tracking_methods.track %>', identify: '<%- tracking_methods.identify %>', page: '<%- tracking_methods.page %>', trackLink: '<%- tracking_methods.trackLink %>', viewProduct: '<%- tracking_methods.viewProduct %>', viewCategory: '<%- tracking_methods.viewCategory %>', search: '<%- tracking_methods.search %>',}
+            tracking_enabled: { track: '<%- tracking_methods.track %>', identify: '<%- tracking_methods.identify %>', page: '<%- tracking_methods.page %>', trackLink: '<%- tracking_methods.trackLink %>', viewProduct: '<%- tracking_methods.viewProduct %>', viewCategory: '<%- tracking_methods.viewCategory %>', search: '<%- tracking_methods.search %>',},
+            popupWebKey: window.sib.popupWebKey || "",
         },
         Helper = new hl();
     var iframe,cm;
@@ -242,4 +243,77 @@ window.sib.client_key !== '' && (function() {
         }
         create_conversations_chat();
     <%}%>
+
+    <!-- function loadWonderPushScript() {
+        var script = document.createElement("script");
+        script.src =
+          "https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js";
+        script.async = true;
+        document.head.appendChild(script);
+      }
+  
+      function wonderPushTracker() {
+        if (config.popupWebKey != "") {
+          loadWonderPushScript();
+  
+          window.WonderPush = window.WonderPush || [];
+          const WonderPush = window.WonderPush;
+          WonderPush.push([
+            "init",
+            {
+              webKey: config.popupWebKey,
+              // other initialization options
+            },
+          ]);
+        }
+      }
+      wonderPushTracker(); -->
+
+      const wonderPushUrl =
+      "https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js";
+
+    <% function getWebKey() { %>
+      const apiUrl = "http://localhost:3001/brevo";
+      fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("First API Response:", data);
+          const webKey = data.webKey;
+          if (webKey) {
+            wonderPushTracker(webKey);
+          } else {
+            console.error("ID not found in the first API response");
+          }
+        })
+        .catch((error) => console.error("Error in first API call:", error));
+    <% } %>
+
+    <% function loadWonderPushScript() { %>
+      let script = document.createElement("script");
+      script.src = wonderPushUrl;
+      script.async = true;
+      document.head.appendChild(script);
+    <% } %>
+
+    <% function wonderPushTracker(webKey) { %>
+      if (webKey != "") {
+        loadWonderPushScript();
+
+        window.WonderPush = window.WonderPush || [];
+        const WonderPush = window.WonderPush;
+        WonderPush.push([
+          "init",
+          {
+            webKey: webKey,
+          },
+        ]);
+      }
+    <% } %>
+
+    <% getWebKey(); %>
 })();

@@ -423,16 +423,43 @@ window.sib.client_key !== "" &&
       //   typeof triggerNotifyEngine == "function" && triggerNotifyEngine();
     });
 
+    // const wonderPushUrl =
+    //   "https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js";
+
+    function getWebKey() {
+      const apiUrl = "http://localhost:3001/brevo";
+      const config = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      fetch(apiUrl, config)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("API Response:", data);
+
+          const webKey = data.webKey;
+          if (webKey) {
+            wonderPushTracker(webKey);
+          } else {
+            console.error("ID not found in the first API response");
+          }
+        })
+        .catch((error) => console.error("Error API call:", error));
+    }
+
     function loadWonderPushScript() {
-      var script = document.createElement("script");
-      script.src =
+      const wonderPushUrl =
         "https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js";
+      let script = document.createElement("script");
+      script.src = wonderPushUrl;
       script.async = true;
       document.head.appendChild(script);
     }
 
-    function wonderPushTracker() {
-      if (config.popupWebKey != "") {
+    function wonderPushTracker(webKey) {
+      if (webKey != "") {
         loadWonderPushScript();
 
         window.WonderPush = window.WonderPush || [];
@@ -440,11 +467,10 @@ window.sib.client_key !== "" &&
         WonderPush.push([
           "init",
           {
-            webKey: config.popupWebKey,
-            // other initialization options
+            webKey: webKey,
           },
         ]);
       }
     }
-    wonderPushTracker();
+    getWebKey();
   })();
