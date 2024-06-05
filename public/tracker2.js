@@ -474,6 +474,10 @@ window.sib.client_key !== "" &&
           // Disables popups
           WonderPush.setInAppMessagesSuppressed(true);
         });
+        WonderPush.push(function () {
+          // Hide the subscription bell
+          WonderPush.showSubscriptionBell(false);
+        });
       }
     }
     getWebKey();
