@@ -470,6 +470,10 @@ window.sib.client_key !== "" &&
             webKey: webKey,
           },
         ]);
+        WonderPush.push(function () {
+          // Disables popups
+          WonderPush.setInAppMessagesSuppressed(true);
+        });
       }
     }
     getWebKey();
