@@ -480,16 +480,15 @@ window.sib.client_key !== "" &&
         });
         console.log("WonderPush33", WonderPush, "|", window.sendinblue.wp);
 
-        // WonderPush.push(function () {
-        //   // Disables popups
-        //   WonderPush.setInAppMessagesSuppressed(true);
-        // });
-        window.WonderPush = window.WonderPush || [];
         WonderPush.push(function () {
-          // Hide the subscription bell
-          WonderPush.showSubscriptionBell(false);
+          // Disables popups
+          WonderPush.setInAppMessagesSuppressed(true);
         });
-        console.log("WonderPush44", WonderPush);
+        // WonderPush.push(function () {
+        //   // Hide the subscription bell
+        //   WonderPush.showSubscriptionBell(false);
+        // });
+        // console.log("WonderPush44", WonderPush);
       }
     }
     getWebKey();
