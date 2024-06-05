@@ -470,6 +470,7 @@ window.sib.client_key !== "" &&
           "init",
           {
             webKey: webKey,
+            subscriptionBell: { hideWhenSubscribed: true },
           },
         ]);
 
