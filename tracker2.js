@@ -464,20 +464,31 @@ window.sib.client_key !== "" &&
 
         window.WonderPush = window.WonderPush || [];
         const WonderPush = window.WonderPush;
+        console.log("WonderPush11122", WonderPush, "|", window.sendinblue.wp);
+
         WonderPush.push([
           "init",
           {
             webKey: webKey,
           },
         ]);
-        WonderPush.push(function () {
-          // Disables popups
-          WonderPush.setInAppMessagesSuppressed(true);
+
+        console.log("WonderPush22", WonderPush, "|", window.sendinblue.wp);
+        window.sendinblue.wp.forEach(function (item) {
+          WonderPush.push(item);
         });
+        console.log("WonderPush33", WonderPush, "|", window.sendinblue.wp);
+
+        // WonderPush.push(function () {
+        //   // Disables popups
+        //   WonderPush.setInAppMessagesSuppressed(true);
+        // });
+        window.WonderPush = window.WonderPush || [];
         WonderPush.push(function () {
           // Hide the subscription bell
           WonderPush.showSubscriptionBell(false);
         });
+        console.log("WonderPush44", WonderPush);
       }
     }
     getWebKey();
