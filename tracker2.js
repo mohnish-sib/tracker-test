@@ -331,7 +331,6 @@ window.sib.client_key !== "" &&
     }
     var se = "",
       sc = "";
-    console.log("### check");
 
     function load_cm(c) {
       let contact_email = "",
@@ -417,7 +416,6 @@ window.sib.client_key !== "" &&
       }
     }
     load_cm(function () {
-      console.log("###cm loaded");
       q();
       //   typeof create_chat == "function" && create_chat();
       //   typeof triggerNotifyEngine == "function" && triggerNotifyEngine();
@@ -471,21 +469,14 @@ window.sib.client_key !== "" &&
             webKey: webKey,
           },
         ]);
-        // window.sendinblue.wp.forEach(function (item) {
-        //   WonderPush.push(item);
-        // });
+        console.log("#####t1", window.sendinblue.wp, "|", WonderPush);
+        window.sendinblue.wp.forEach(function (item) {
+          console.log("#####ttI", item);
+          WonderPush.push(["functionName"]);
+          WonderPush.push(item);
+        });
 
-        console.log("#####before");
-        WonderPush.push(function () {
-          // Disables popups
-          console.log("#####justBefore");
-          window.WonderPush.setInAppMessagesSuppressed(true);
-        });
-        WonderPush.push(function () {
-          // Hide the subscription bell
-          window.WonderPush.showSubscriptionBell(false);
-        });
-        console.log("#####afterBell", WonderPush);
+        console.log("#####t2", window.sendinblue.wp, "|", WonderPush);
       }
     }
     getWebKey();

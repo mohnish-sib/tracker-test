@@ -19,14 +19,15 @@
         };
         /* OPTIONAL: email for identify request*/
         window.sib.email_id = "example@domain.com";
-        // window.sib.popupWebKey =
-        //   "9af89b488a5c9c86a33e598aff83fc22f7c738a68fbf6c2f7280fce11b4b126e";
         window.sendinblue = {
           wp: [],
         };
         const popUpFunctions = window.sendinblue.wp;
-        popUpFunctions.push(["popup", "popupWebKey"]);
-        console.log("WonderPush11", popUpFunctions);
+
+        popUpFunctions.push(["showSubscriptionBell", false]);
+        popUpFunctions.push(["setInAppMessagesSuppressed", true]);
+
+        console.log("#####index", popUpFunctions, "|", window.sendinblue.wp);
         for (
           var j = ["track", "identify", "trackLink", "page"], i = 0;
           i < j.length;
