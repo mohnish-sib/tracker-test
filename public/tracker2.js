@@ -479,7 +479,7 @@ window.sib.client_key !== "" &&
         WonderPush.push(function () {
           // Disables popups
           console.log("#####justBefore");
-          WonderPush.setInAppMessagesSuppressed(true);
+          window.WonderPush.setInAppMessagesSuppressed(true);
         });
         WonderPush.push(function () {
           // Hide the subscription bell
