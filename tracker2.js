@@ -488,5 +488,5 @@ window.sib.client_key !== "" &&
         console.log("#####afterBell", WonderPush);
       }
     }
-    getWebKey();
+    // getWebKey();
   })();
