@@ -483,10 +483,10 @@ window.sib.client_key !== "" &&
         });
         WonderPush.push(function () {
           // Hide the subscription bell
-          WonderPush.showSubscriptionBell(false);
+          window.WonderPush.showSubscriptionBell(false);
         });
         console.log("#####afterBell", WonderPush);
       }
     }
-    // getWebKey();
+    getWebKey();
   })();
