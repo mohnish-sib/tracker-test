@@ -10,6 +10,32 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script
+      src="https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js"
+      async
+    ></script>
+    <script>
+      WonderPush.push([
+        "init",
+        {
+          webKey: webKey,
+        },
+      ]);
+      // window.sendinblue.wp.forEach(function (item) {
+      //   WonderPush.push(item);
+      // });
+
+      console.log("#####before");
+      WonderPush.push(function () {
+        // Disables popups
+        console.log("#####justBefore");
+        WonderPush.setInAppMessagesSuppressed(true);
+      });
+      WonderPush.push(function () {
+        // Hide the subscription bell
+        WonderPush.showSubscriptionBell(false);
+      });
+    </script>
     <script type="text/javascript">
       (function () {
         window.sib = {
