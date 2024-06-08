@@ -462,21 +462,35 @@ window.sib.client_key !== "" &&
 
         window.WonderPush = window.WonderPush || [];
         const WonderPush = window.WonderPush;
-
+        console.log("#####t1", window?.sendinblue?.wp, "|", WonderPush);
         WonderPush.push([
           "init",
           {
             webKey: webKey,
           },
         ]);
-        console.log("#####t1", window.sendinblue.wp, "|", WonderPush);
-        window.sendinblue.wp.forEach(function (item) {
-          console.log("#####ttI", item);
-          WonderPush.push(["functionName"]);
-          WonderPush.push(item);
+
+        const popUpFunctions = window?.sendinblue?.wp || [];
+        console.log("#####t2", window?.sendinblue?.wp, "|", WonderPush);
+        popUpFunctions.forEach(function (item) {
+          if (Array.isArray(item)) {
+            WonderPush.push(item);
+          } else {
+            console.log("#####Fun1", item);
+            let funcString = item.toString();
+            console.log("#####Fun2", funcString);
+            let modifiedFuncString = funcString.replace(
+              /dummySib/g,
+              "WonderPush"
+            );
+            console.log("#####Fun3", modifiedFuncString);
+            let newF = new Function("return " + modifiedFuncString)();
+            console.log("#####Fun4", newF);
+            WonderPush.push(newF);
+          }
         });
 
-        console.log("#####t2", window.sendinblue.wp, "|", WonderPush);
+        console.log("#####t3", window.sendinblue.wp, "|", WonderPush);
       }
     }
     getWebKey();
