@@ -21,10 +21,18 @@
         window.sendinblue = {
           wp: [],
         };
+        let dummySib = {};
         const popUpFunctions = window.sendinblue.wp;
-
-        popUpFunctions.push(["showSubscriptionBell", false]);
+        // popUpFunctions.push(["showSubscriptionBell", false]);
         popUpFunctions.push(["setInAppMessagesSuppressed", false]);
+        popUpFunctions.push(function () {
+          dummySib.showSubscriptionBell(false);
+        });
+        // popUpFunctions.push(function () {
+        //   dummy.isSubscribedToNotifications().then(function (isSubscribed) {
+        //     console.log("check ", isSubscribed);
+        //   });
+        // });
 
         console.log("#####index", popUpFunctions, "|", window.sendinblue.wp);
         for (
