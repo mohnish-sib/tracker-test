@@ -475,7 +475,7 @@ window.sib.client_key !== "" &&
 
         window.WonderPush = window.WonderPush || [];
         const WonderPush = window.WonderPush;
-        console.log("#####t1", window?.sendinblue?.wp, "|", WonderPush);
+        console.log("#####t1", WonderPush);
         WonderPush.push([
           "init",
           {
@@ -500,14 +500,7 @@ window.sib.client_key !== "" &&
         // });
         // window.sibpopup = WonderPush;
 
-        console.log(
-          "#####t3",
-          window.sendinblue.wp,
-          "|",
-          WonderPush,
-          "|",
-          window.sibpopup
-        );
+        console.log("#####t3", WonderPush, "|", window.sibpopup);
       }
     }
     getWebKey();
