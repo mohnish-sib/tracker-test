@@ -22,7 +22,7 @@
           wp: [],
         };
         let dummySib = {};
-        const popUpFunctions = window.sendinblue.wp;
+        // const popUpFunctions = window.sendinblue.wp;
         // popUpFunctions.push(["showSubscriptionBell", false]);
         // popUpFunctions.push(["setInAppMessagesSuppressed", false]);
         // popUpFunctions.push(function () {
@@ -33,26 +33,30 @@
         //     console.log("check ", isSubscribed);
         //   });
         // });
-        window.sibpopup = [];
-        window.sibpopup.push(["setInAppMessagesSuppressed", false]);
-        window.sibpopup.push(function () {
-          dummySib.showSubscriptionBell(false);
-        });
+        // window.sibpopup = [];
+        // window.sibpopup.push(["setInAppMessagesSuppressed", false]);
+        // window.sibpopup.push(function () {
+        //   dummySib.showSubscriptionBell(false);
+        // });
 
         console.log("#####index", popUpFunctions, "|", window.sendinblue.wp);
         for (
-          var j = ["track", "identify", "trackLink", "page"], i = 0;
+          var j = ["track", "identify", "trackLink", "page", "popup"], i = 0;
           i < j.length;
           i++
         ) {
           (function (k) {
             window.sendinblue[k] = function () {
+              console.log("#####index", k, arguments);
               var arg = Array.prototype.slice.call(arguments);
+              console.log("#####index", k, arguments, "|", arg);
+
               (
                 window.sib[k] ||
                 function () {
                   var t = {};
                   t[k] = arg;
+                  console.log("#####iiiiT", t);
                   window.sib.equeue.push(t);
                 }
               )(arg[0], arg[1], arg[2], arg[3]);
@@ -68,6 +72,26 @@
           i.parentNode.insertBefore(n, i);
         // window.sendinblue.page();
       })();
+      // sendinblue.identify("john.doe@example.com", {
+      //   FIRSTNAME: "John",
+      //   LASTNAME: "Doe",
+      //   id: "10001",
+      //   plan: "diamond",
+      //   location: "San Francisco",
+      // });
+    </script>
+    <script type="text/javascript">
+      sendinblue.identify("john.doe@example.com", {
+        FIRSTNAME: "John",
+        LASTNAME: "Doe",
+        id: "10001",
+        plan: "diamond",
+        location: "San Francisco",
+      });
+      sendinblue.popup(["showSubscriptionBell", false]);
+      sendinblue.popup(function () {
+        dummySib.setInAppMessagesSuppressed(false);
+      });
     </script>
     <!-- <script
       src="https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js"
