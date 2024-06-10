@@ -80,6 +80,7 @@
       //   location: "San Francisco",
       // });
     </script>
+
     <script type="text/javascript">
       sendinblue.identify("john.doe@example.com", {
         FIRSTNAME: "John",
@@ -88,9 +89,9 @@
         plan: "diamond",
         location: "San Francisco",
       });
-      sendinblue.popup(["showSubscriptionBell", false]);
+      sendinblue.popup(["showSubscriptionBell", true]);
       sendinblue.popup(function () {
-        dummySib.setInAppMessagesSuppressed(false);
+        dummySib.setInAppMessagesSuppressed(true);
       });
     </script>
     <!-- <script
