@@ -483,21 +483,21 @@ window.sib.client_key !== "" &&
           },
         ]);
 
-        const popUpFunctions = window.sendinblue.wp || [];
-        console.log("#####t2", popUpFunctions, "|", WonderPush);
-        popUpFunctions.forEach(function (item) {
-          if (Array.isArray(item)) {
-            WonderPush.push(item);
-          } else {
-            let funcString = item.toString();
-            let modifiedFuncString = funcString.replace(
-              /dummySib/g,
-              "WonderPush"
-            );
-            let newF = new Function("return " + modifiedFuncString)();
-            WonderPush.push(newF);
-          }
-        });
+        // const popUpFunctions = window.sendinblue.wp || [];
+        // console.log("#####t2", popUpFunctions, "|", WonderPush);
+        // popUpFunctions.forEach(function (item) {
+        //   if (Array.isArray(item)) {
+        //     WonderPush.push(item);
+        //   } else {
+        //     let funcString = item.toString();
+        //     let modifiedFuncString = funcString.replace(
+        //       /dummySib/g,
+        //       "WonderPush"
+        //     );
+        //     let newF = new Function("return " + modifiedFuncString)();
+        //     WonderPush.push(newF);
+        //   }
+        // });
         // window.sibpopup = WonderPush;
 
         console.log(
