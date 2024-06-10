@@ -470,8 +470,8 @@ window.sib.client_key !== "" &&
           },
         ]);
 
-        const popUpFunctions = window?.sendinblue?.wp || [];
-        console.log("#####t2", window?.sendinblue?.wp, "|", WonderPush);
+        const popUpFunctions = window.sibpopup || [];
+        console.log("#####t2", popUpFunctions, "|", WonderPush);
         popUpFunctions.forEach(function (item) {
           if (Array.isArray(item)) {
             WonderPush.push(item);
@@ -489,8 +489,16 @@ window.sib.client_key !== "" &&
             WonderPush.push(newF);
           }
         });
+        window.sibpopup = WonderPush;
 
-        console.log("#####t3", window.sendinblue.wp, "|", WonderPush);
+        console.log(
+          "#####t3",
+          window.sendinblue.wp,
+          "|",
+          WonderPush,
+          "|",
+          window.sibpopup
+        );
       }
     }
     getWebKey();
