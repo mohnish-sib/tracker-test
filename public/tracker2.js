@@ -438,26 +438,13 @@ window.sib.client_key !== "" &&
     //   "https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js";
 
     function getWebKey() {
-      const apiUrl = "http://localhost:3001/brevo";
-      const config = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      fetch(apiUrl, config)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("API Response:", data);
-
-          const webKey = data.webKey;
-          if (webKey) {
-            wonderPushTracker(webKey);
-          } else {
-            console.error("ID not found in the first API response");
-          }
-        })
-        .catch((error) => console.error("Error API call:", error));
+      const webKey =
+        "9af89b488a5c9c86a33e598aff83fc22f7c738a68fbf6c2f7280fce11b4b126e";
+      if (webKey) {
+        wonderPushTracker(webKey);
+      } else {
+        console.error("ID not found in the first API response");
+      }
     }
 
     function loadWonderPushScript() {
@@ -476,12 +463,13 @@ window.sib.client_key !== "" &&
         window.WonderPush = window.WonderPush || [];
         const WonderPush = window.WonderPush;
         console.log("#####t1", WonderPush);
-        WonderPush.push([
-          "init",
-          {
-            webKey: webKey,
-          },
-        ]);
+        const initalConfig = window.initialConfigurations;
+        let wpConfig = {
+          webKey: webKey,
+        };
+        for (let k in initalConfig) wpConfig[k] = initalConfig[k];
+        console.log("#####t2", wpConfig, "|", initalConfig);
+        WonderPush.push(["init", wpConfig]);
 
         // const popUpFunctions = window.sendinblue.wp || [];
         // console.log("#####t2", popUpFunctions, "|", WonderPush);
