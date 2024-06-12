@@ -22,6 +22,19 @@
         window.sendinblue = {
           // wp: [],
         };
+
+        let initialConfigurations = {
+          subscriptionBell: {
+            style: { backgroundColor: "black" },
+            position: "right",
+          },
+          subscriptionSwitch: {
+            switchElementId: "check-me",
+            sentence: "toggle btn check",
+          },
+        };
+        window.initialConfigurations = initialConfigurations;
+
         // let dummySib = {};
         // const popUpFunctions = window.sendinblue.wp;
         // popUpFunctions.push(["showSubscriptionBell", false]);
@@ -92,9 +105,10 @@
       });
       sendinblue.popup(["showSubscriptionBell", true]);
       sendinblue.popup(function () {
-        dummySib.setInAppMessagesSuppressed(true);
+        dummySib.setInAppMessagesSuppressed(false);
       });
     </script>
+
     <!-- <script
       src="https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js"
       async
