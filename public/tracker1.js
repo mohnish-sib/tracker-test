@@ -438,7 +438,7 @@ window.sib.client_key !== "" &&
         loadWonderPushScript();
 
         window.WonderPush = window.WonderPush || [];
-        window.Brevo = window.Brevo || [];
+        // window.Brevo = window.Brevo || [];
         const WonderPush = window.WonderPush;
         console.log("#####t1", WonderPush);
         // const initalConfig = window.initialPopupConfig || {};
@@ -450,7 +450,7 @@ window.sib.client_key !== "" &&
         WonderPush.push(["init", wpConfig]);
         WonderPush.push(function () {
           console.log("###3", "wonderPush executed");
-          window.isWPReady = true;
+          window.loadState.isWPReady = true;
         });
 
         // console.log(

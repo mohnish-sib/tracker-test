@@ -28,11 +28,14 @@
       Brevo.push(function () {
         console.log("####", "push function trigger");
       });
-      Brevo.push(["showSubscriptionBell", true]);
       Brevo.push(function () {
-        // Hide the subscription bell
-        dummy.showSubscriptionBell(false);
+        Brevo.track("purchase", { product: "productA" });
       });
+      // Brevo.push(["showSubscriptionBell", true]);
+      // Brevo.push(function () {
+      //   // Hide the subscription bell
+      //   Brevo.showSubscriptionBell(false);
+      // });
     </script>
   </body>
 </html>
