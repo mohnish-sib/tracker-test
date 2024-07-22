@@ -11,196 +11,29 @@
 
   <body>
     <div id="root"></div>
-    <script type="text/javascript">
-      (function () {
-        window.sib = {
-          equeue: [],
-          client_key: "dhbfpsya71bcrariwhh0oqjn",
-        };
-        /* OPTIONAL: email for identify request*/
-        window.sib.email_id = "example@domain.com";
-        window.sendinblue = {
-          // wp: [],
-        };
-
-        let initialConfigurations = {
-          subscriptionBell: {
-            style: { backgroundColor: "black" },
-            position: "right",
-          },
-          subscriptionSwitch: {
-            switchElementId: "check-me",
-            sentence: "toggle btn check",
-          },
-        };
-        window.initialConfigurations = initialConfigurations;
-
-        // let dummySib = {};
-        // const popUpFunctions = window.sendinblue.wp;
-        // popUpFunctions.push(["showSubscriptionBell", false]);
-        // popUpFunctions.push(["setInAppMessagesSuppressed", false]);
-        // popUpFunctions.push(function () {
-        //   dummySib.showSubscriptionBell(false);
-        // });
-        // popUpFunctions.push(function () {
-        //   dummy.isSubscribedToNotifications().then(function (isSubscribed) {
-        //     console.log("check ", isSubscribed);
-        //   });
-        // });
-        // window.sibpopup = [];
-        // window.sibpopup.push(["setInAppMessagesSuppressed", false]);
-        // window.sibpopup.push(function () {
-        //   dummySib.showSubscriptionBell(false);
-        // });
-
-        // console.log("#####index", popUpFunctions, "|", window.sendinblue.wp);
-        for (
-          var j = ["track", "identify", "trackLink", "page", "popup"], i = 0;
-          i < j.length;
-          i++
-        ) {
-          (function (k) {
-            window.sendinblue[k] = function () {
-              console.log("#####index", k, arguments);
-              var arg = Array.prototype.slice.call(arguments);
-              console.log("#####index", k, arguments, "|", arg);
-
-              (
-                window.sib[k] ||
-                function () {
-                  var t = {};
-                  t[k] = arg;
-                  console.log("#####iiiiT", t);
-                  window.sib.equeue.push(t);
-                }
-              )(arg[0], arg[1], arg[2], arg[3]);
-            };
-          })(j[i]);
-        }
-        var n = document.createElement("script"),
-          i = document.getElementsByTagName("script")[0];
-        (n.type = "text/javascript"),
-          // (n.id = "sendinblue-js"),
-          (n.async = !0),
-          (n.src = "/tracker-test/tracker2.js"),
-          i.parentNode.insertBefore(n, i);
-        // window.sendinblue.page();
-      })();
-      // sendinblue.identify("john.doe@example.com", {
-      //   FIRSTNAME: "John",
-      //   LASTNAME: "Doe",
-      //   id: "10001",
-      //   plan: "diamond",
-      //   location: "San Francisco",
-      // });
+    <script src="http://localhost:8085/sdk-loader.js" async></script>
+    <script>
+      window.Brevo = window.Brevo || [];
+      Brevo.push([
+        "init",
+        {
+          client_key: "cdtnyxichy01gyckv9fo5",
+        },
+      ]);
     </script>
-
-    <script type="text/javascript">
-      sendinblue.identify("john.doe@example.com", {
-        FIRSTNAME: "John",
-        LASTNAME: "Doe",
-        id: "10001",
-        plan: "diamond",
-        location: "San Francisco",
+    <script>
+      // Brevo.track("purchase", { product: "productA" });
+      //17huj2e1kz5u7gyy60ehqjy5 <=staging
+      //cdtnyxichy01gyckv9fo5 <= production
+      // Brevo.page();
+      Brevo.push(function () {
+        console.log("####", "push function trigger");
       });
-      sendinblue.popup(["showSubscriptionBell", true]);
-      sendinblue.popup(function () {
-        dummySib.setInAppMessagesSuppressed(false);
+      Brevo.push(["showSubscriptionBell", true]);
+      Brevo.push(function () {
+        // Hide the subscription bell
+        dummy.showSubscriptionBell(false);
       });
     </script>
-
-    <!-- <script
-      src="https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js"
-      async
-    ></script> -->
-
-    <!-- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      setTimeout(function() {
-        // Create the modal container
-        const modal = document.createElement("div");
-        modal.id = "popup-modal";
-        modal.innerHTML = `
-            <div class="modal-overlay" 
-              style="position:fixed;top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              background-color: rgba(0, 0, 0, 0.75);
-              display: flex;
-              align-items: center;
-              justify-content: center;">
-              <div class="modal-content" style="background: white;color: black;
-                padding: 20px;
-                border-radius: 4px;
-                text-align: center;
-                width: 300px;">
-                <h2>Hello, this is a modal!</h2>
-                <p>This modal appears 5ms after the page loads.</p>
-                <button id="close-modal" style="margin-top: 20px;" >Close</button>
-              </div>
-            </div>
-          `;
-
-        // Append the modal to the body
-        document.body.appendChild(modal);
-
-        // Add event listener to close the modal
-        document
-          .getElementById("close-modal")
-          .addEventListener("click", function() {
-            document.body.removeChild(modal);
-          });
-      }, 500);
-    });
-  </script> -->
-
-    <!-- <script>
-    function createPopup() {
-      // Create the modal container
-      const modal = document.createElement("div");
-      modal.id = "popup-modal";
-      modal.innerHTML = `
-        <div class="modal-overlay" 
-              style="position:fixed;top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              background-color: rgba(0, 0, 0, 0.75);
-              display: flex;
-              align-items: center;
-              justify-content: center;">
-              <div class="modal-content" style="background: white;color: black;
-                padding: 20px;
-                border-radius: 4px;
-                text-align: center;
-                width: 300px;">
-                <h2>Hello, this is a modal!</h2>
-                <p>This modal appears 5ms after the page loads.</p>
-                <button id="close-modal" style="margin-top: 20px;" >Close</button>
-              </div>
-            </div>
-      `;
-
-      // Append the modal to the body
-      document.body.appendChild(modal);
-
-      // Add event listener to close the modal
-      document
-        .getElementById("close-modal")
-        .addEventListener("click", function() {
-          document.body.removeChild(modal);
-        });
-    }
-
-    window.addEventListener("beforeunload", function(event) {
-      // Show the modal
-      createPopup();
-
-      // Show a generic confirmation message (this is browser-specific and can't be customized)
-      event.preventDefault();
-      event.returnValue = "";
-    });
-  </script> -->
   </body>
 </html>

@@ -2,15 +2,16 @@ window.sib.client_key !== "" &&
   (function () {
     "use strict";
     var config = {
-        url: "https://in-automate.brevo.com/p",
-        tracker_url: "https://in-automate.brevo.com",
+        url: "https://in-automate.51b.dev/p",
+        tracker_url: "https://in-automate.51b.dev",
         com_err_msg:
           "Please try again later/ Report this error to Sendinblue Team",
         cookie_exp: 182 * 24,
         if_url:
-          "https://sibautomation.com/cm.html?key=" + window.sib.client_key,
+          "https://app-automation-staging.51b.dev/cm.html?key=" +
+          window.sib.client_key,
         is_secure: "false",
-        base_url: "https://in-automate.brevo.com",
+        base_url: "https://in-automate.51b.dev",
         custom_url_parsing: "",
         tracking_enabled: {
           track: "true",
@@ -20,7 +21,6 @@ window.sib.client_key !== "" &&
           viewProduct: "true",
           viewCategory: "true",
           search: "true",
-          popup: "true",
         },
       },
       Helper = new hl();
@@ -28,6 +28,7 @@ window.sib.client_key !== "" &&
     function q() {
       while (window.sib.equeue.length) {
         (function (obj) {
+          console.log("####SIB", obj);
           for (var k in obj) {
             if (typeof window.sib[k] === "function") {
               setTimeout(function () {
@@ -94,11 +95,7 @@ window.sib.client_key !== "" &&
       var reqBody = generateReqBody(event_type);
       var headers = generateReqHeaders();
       var url = config.tracker_url + url_suffix;
-      return {
-        reqBody,
-        headers,
-        url,
-      };
+      return { reqBody, headers, url };
     }
     function hl() {}
     function sib() {}
@@ -180,10 +177,7 @@ window.sib.client_key !== "" &&
         return cb();
       }
       if (n && n != undefined && n != "") {
-        var o = {
-          sib_type: "track",
-          sib_name: n,
-        };
+        var o = { sib_type: "track", sib_name: n };
         if (d && typeof d == "object") {
           o.contact = d;
         }
@@ -206,9 +200,7 @@ window.sib.client_key !== "" &&
         return cb();
       }
       if (em != undefined && em != "") {
-        var o = {
-          sib_type: "identify",
-        };
+        var o = { sib_type: "identify" };
         if (d && typeof d == "object") {
           o.contact = d;
         }
@@ -319,18 +311,6 @@ window.sib.client_key !== "" &&
         }
       );
     };
-    sib.prototype.popup = function (popFunc) {
-      console.log("####pop", popFunc);
-      if (Array.isArray(popFunc)) {
-        window.WonderPush.push(popFunc);
-      } else {
-        let funcString = popFunc.toString();
-        let modifiedFuncString = funcString.replace(/dummySib/g, "WonderPush");
-        let newF = new Function("return " + modifiedFuncString)();
-        window.WonderPush.push(newF);
-      }
-      return;
-    };
     window.sib = mo(new sib(), window.sib);
     var cuid;
     var cm_flag = false;
@@ -341,9 +321,9 @@ window.sib.client_key !== "" &&
       cm_flag = true;
       Helper.cookie.set("sib_cuid", cuid);
     }
+
     var se = "",
       sc = "";
-
     function load_cm(c) {
       let contact_email = "",
         parameter = "",
@@ -365,6 +345,7 @@ window.sib.client_key !== "" &&
           parameter = "_sc";
         }
       }
+
       if (
         cuid &&
         (contact_email || contact_id) &&
@@ -429,12 +410,7 @@ window.sib.client_key !== "" &&
     }
     load_cm(function () {
       q();
-      //   typeof create_chat == "function" && create_chat();
-      //   typeof triggerNotifyEngine == "function" && triggerNotifyEngine();
     });
-
-    // const wonderPushUrl =
-    //   "https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js";
 
     function getWebKey() {
       const webKey =
@@ -453,16 +429,7 @@ window.sib.client_key !== "" &&
         "https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js";
       let script = document.createElement("script");
       script.src = wonderPushUrl;
-      // script.async = true;
-      script.onload = function () {
-        console.log("#####tfina=>", Object.getPrototypeOf(window.WonderPush));
-        setTimeout(() => {
-          console.log(
-            "#####tfina2=>",
-            Object.getPrototypeOf(window.WonderPush)
-          );
-        }, 100);
-      };
+      script.async = true;
       document.head.appendChild(script);
     }
 
@@ -474,62 +441,24 @@ window.sib.client_key !== "" &&
         window.Brevo = window.Brevo || [];
         const WonderPush = window.WonderPush;
         console.log("#####t1", WonderPush);
-        const initalConfig = window.initialPopupConfig || {};
+        // const initalConfig = window.initialPopupConfig || {};
         let wpConfig = {
           webKey: webKey,
         };
-        for (let k in initalConfig) wpConfig[k] = initalConfig[k];
-        console.log("#####t2", wpConfig, "|", initalConfig);
-        // WonderPush.push(["init", wpConfig]);
-        // window.WonderPush.push(function () {
-        //   // Disables popups
-        //   console.log("#####t22222", Object.getPrototypeOf(window.WonderPush));
-        // });
-        // WonderPush.ready(function () {
-        //   console.log(
-        //     "#####tfina4=>",
-        //     Object.getPrototypeOf(window.WonderPush)
-        //   );
-        // });
-        // window.Brevo = Object.create(Object.getPrototypeOf(window.WonderPush));
-        // window.Brevo.__proto__ = Object.getPrototypeOf(window.WonderPush);
-        console.log("#####t2.5=>", Object.getPrototypeOf(window.WonderPush));
+        // for (let k in initalConfig) wpConfig[k] = initalConfig[k];
+        console.log("#####t2", wpConfig, "|");
+        WonderPush.push(["init", wpConfig]);
+        WonderPush.push(function () {
+          console.log("###3", "wonderPush executed");
+          window.isWPReady = true;
+        });
 
-        // const popUpFunctions = window.sendinblue.wp || [];
-        // console.log("#####t2", popUpFunctions, "|", WonderPush);
-        // popUpFunctions.forEach(function (item) {
-        //   if (Array.isArray(item)) {
-        //     WonderPush.push(item);
-        //   } else {
-        //     let funcString = item.toString();
-        //     let modifiedFuncString = funcString.replace(
-        //       /dummySib/g,
-        //       "WonderPush"
-        //     );
-        //     let newF = new Function("return " + modifiedFuncString)();
-        //     WonderPush.push(newF);
-        //   }
-        // });
-        // window.sibpopup = WonderPush;
-
-        console.log("#####t3", WonderPush, "|", window.sibpopup);
+        // console.log(
+        //   "#####t2.5=>",
+        //   Object.getPrototypeOf(window.WonderPush),
+        //   window.sib.equeue
+        // );
       }
     }
-    console.log(
-      "####loader3",
-      window.Brevo,
-      "|",
-      window.sib,
-      "|",
-      window.sendinblue
-    );
     getWebKey();
-    console.log(
-      "####loader4",
-      window.Brevo,
-      "|",
-      window.sib,
-      "|",
-      window.sendinblue
-    );
   })();
