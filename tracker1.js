@@ -199,17 +199,43 @@ window.sib.client_key !== "" &&
       if (config.tracking_enabled.identify === "false") {
         return cb();
       }
-      if (em != undefined && em != "") {
+      console.log("####callBack", em, "|", d, "|", cb);
+      if (em && typeof em == "object") {
+        console.log(
+          "####identicheck",
+          em?.identifiers,
+          em?.identifiers?.email_id,
+          em?.identifiers?.ext_id
+        );
+        if (
+          em?.identifiers?.email_id === undefined &&
+          em?.identifiers?.ext_id === undefined
+        ) {
+          return d && d("Identifiers not passed");
+        }
+        var o1 = { sib_type: "identify" };
+        if (em?.attributes && typeof em?.attributes == "object") {
+          o1.contact = em?.attributes;
+        }
+        o1 = br(o1);
+        o1.email_id = em?.identifiers?.email_id;
+        o1.ext_id = em?.identifiers?.ext_id;
+        Helper.post(o1, function (err) {
+          return d && d(err);
+        });
+      } else if (em != undefined && em != "") {
         var o = { sib_type: "identify" };
         if (d && typeof d == "object") {
           o.contact = d;
         }
         o = br(o);
         o.email_id = em;
+        console.log("####identify", o, "|", em, "|", d, "|", cb);
         Helper.post(o, function (err) {
           return cb && cb(err);
         });
       } else {
+        console.log("####identify", "email not passed");
         return cb && cb("Email not passed");
       }
     };
@@ -412,6 +438,73 @@ window.sib.client_key !== "" &&
       q();
     });
 
+    let isReadystate = {
+      isWPReady: false,
+    };
+    const proxyHandler = {
+        set: function (target, property, value) {
+            if (property === "isWPReady" && value === true) onScriptReady();
+            target[property] = value;
+            return true;
+        },
+    };
+    let loadState = new Proxy(isReadystate, proxyHandler);
+    
+    // function to run when the whole script is ready
+    // map the existing automation functions and the WonderPush functions to Brevo object
+    function onScriptReady() {
+        //existing automation fuctions
+        window.Brevo.track = window.sendinblue.track;
+        window.Brevo.identify = window.sendinblue.identify;
+        window.Brevo.trackLink = window.sendinblue.trackLink;
+        window.Brevo.page = window.sendinblue.page;
+        //Wonderpush fuctions
+        window.Brevo.setInAppMessagesSuppressed =
+            window.WonderPush.setInAppMessagesSuppressed;
+    
+        if (Array.isArray(window.Brevo)) {
+            // as the script is ready, now if there are any new actions pushed in the Brevo array, execute them immediately
+            window.Brevo.push = function (ele) {
+                executeActions(ele);
+            };
+            // execute the actions stored in the Brevo array as well
+            while (window.Brevo.length > 0) {
+                const ele = window.Brevo.shift();
+                executeActions(ele);
+            }
+        }
+    }
+
+    function executeActions(ele) {
+        if (typeof ele === "function") ele();
+        else if (Array.isArray(ele)) handleArray(ele);
+    }
+    
+    const funcsMap = {
+        init: () => {},
+        setInAppMessagesSuppressed: function (...args) {
+            window.Brevo.setInAppMessagesSuppressed(...args);
+        },
+        track: function (...args) {
+            window.Brevo.track(...args);
+        },
+        identify: function (...args) {
+            window.Brevo.identify(...args);
+        },
+        trackLink: function (...args) {
+            window.Brevo.trackLink(...args);
+        },
+        page: function (...args) {
+            window.Brevo.page(...args);
+        },
+    };
+
+    function handleArray(ele) {
+        const funcName = ele[0];
+        const params = ele.slice(1);
+        funcsMap[funcName](...params);
+    }
+    
     function getWebKey() {
       const webKey =
         "9af89b488a5c9c86a33e598aff83fc22f7c738a68fbf6c2f7280fce11b4b126e";
@@ -445,12 +538,15 @@ window.sib.client_key !== "" &&
         let wpConfig = {
           webKey: webKey,
         };
+        if (window?.sdkConfig?.installation_path) {
+          wpConfig.serviceWorkerUrl = window.sdkConfig.installation_path;
+        }
         // for (let k in initalConfig) wpConfig[k] = initalConfig[k];
         console.log("#####t2", wpConfig, "|");
         WonderPush.push(["init", wpConfig]);
         WonderPush.push(function () {
           console.log("###3", "wonderPush executed");
-          window.loadState.isWPReady = true;
+          loadState.isWPReady = true;
         });
 
         // console.log(
