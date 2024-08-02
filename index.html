@@ -16,7 +16,7 @@
       Brevo.push([
         "init",
         {
-          client_key: "cdtnyxichy01gyckv9fo5",
+          client_key: "nu0eraznmiiz2co01ct9i",
         },
       ]);
     </script>
@@ -28,8 +28,16 @@
       Brevo.push(function () {
         console.log("####", "push function trigger");
       });
+      Brevo.push(["track","checkme","hehe"]);
+      // Brevo.push(function(){
+      //   Brevo.track("intrackasd","foo");
+      // });
+
+      // Brevo.push(["track","checkme2","hehe"]);
+      // Brevo.push(["track1","checkme3","hehe"]);
+
       Brevo.push(function () {
-        Brevo.track("purchase", { product: "productA" });
+        Brevo.track("infun foo", { product: "productA" });
       });
       // Brevo.push(["showSubscriptionBell", true]);
       // Brevo.push(function () {

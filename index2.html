@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script type="text/javascript">
+      (function() {
+          window.sib = {
+              equeue: [],
+              client_key: "17huj2e1kz5u7gyy60ehqjy5"
+          };
+          /* OPTIONAL: email for identify request*/
+          // window.sib.email_id = 'example@domain.com';
+          window.sendinblue = {};
+          for (var j = ['track', 'identify', 'trackLink', 'page'], i = 0; i < j.length; i++) {
+          (function(k) {
+              window.sendinblue[k] = function() {
+                  var arg = Array.prototype.slice.call(arguments);
+                  (window.sib[k] || function() {
+                          var t = {};
+                          t[k] = arg;
+                          window.sib.equeue.push(t);
+                      })(arg[0], arg[1], arg[2], arg[3]);
+                  };
+              })(j[i]);
+          }
+          var n = document.createElement("script"),
+              i = document.getElementsByTagName("script")[0];
+          n.type = "text/javascript", n.id = "sendinblue-js", n.async = !0, n.src = "http://localhost:8082/sa.js?key=nu0eraznmiiz2co01ct9i", i.parentNode.insertBefore(n, i), window.sendinblue.page();
+      })();
+      </script>
+  </body>
+</html>
