@@ -5,7 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="/tracker-test/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React</title>
-    <script type="module" crossorigin src="/tracker-test/assets/index-C2U146OQ.js"></script>
+    <script type="module" crossorigin src="/tracker-test/assets/index-Dw8jN3Ax.js"></script>
     <link rel="stylesheet" crossorigin href="/tracker-test/assets/index-DiwrgTda.css">
   </head>
 
@@ -18,6 +18,8 @@
         "init",
         {
           client_key: "nu0eraznmiiz2co01ct9i",
+          email_id: "m@gmai.com",/* OPTIONAL: email for identify request*/
+          installation_path: "/path/to/service-worker.js",
         },
       ]);
     </script>
@@ -29,10 +31,15 @@
       Brevo.push(function () {
         console.log("####", "push function trigger");
       });
-      Brevo.push(["track","checkme","hehe"]);
+      Brevo.push(["track","track","hehe"]);
+      Brevo.push(["setInAppMessagesSuppressed", true]);
       // Brevo.push(function(){
-      //   Brevo.track("intrackasd","foo");
+      //   Brevo.setInAppMessagesSuppressed(true);
       // });
+
+      Brevo.push(function(){
+        Brevo.track("intrackasd","foo");
+      });
 
       // Brevo.push(["track","checkme2","hehe"]);
       // Brevo.push(["track1","checkme3","hehe"]);
