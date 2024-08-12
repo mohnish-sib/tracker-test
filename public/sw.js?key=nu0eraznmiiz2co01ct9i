@@ -1,0 +1,11 @@
+(function() {
+    var config = {
+        wonderpush_webkey: 'dc2db67e3dd518c66807c15e4a716bd0055309d0667eb8c5de9c12dd3d5537a4',
+    };
+    
+    if ( config.wonderpush_webkey ){
+        importScripts('https://cdn.by.wonderpush.com/sdk/1.1/wonderpush-loader.min.js');
+        window.WonderPush = window.WonderPush || [];
+        window.WonderPush.push(['init', { webKey: config.wonderpush_webkey }]);
+    }
+})();
