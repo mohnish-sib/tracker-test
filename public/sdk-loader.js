@@ -1,7 +1,6 @@
 "use strict";
-let saJsBasePath = "https://sibautomation.com/sa.js?key=";
-let swJsBasePath = "https://sibautomation.com/sw.js?key=";
-//let basePathStaging = "https://app-automation-staging.51b.dev/sa.js?key=";
+let basePath = "https://mohnish-sib.github.io/tracker-test/";
+//let basePathStaging = "https://app-automation-staging.51b.dev/";
 // needs to maintain two different files for staging and production with the respective base path
 
 (function () {
@@ -24,12 +23,11 @@ let swJsBasePath = "https://sibautomation.com/sw.js?key=";
         // same id as legacy ID to avoid double loading
         let scriptID = "sendinblue-js";
         if (self.document) {
-            //window context
             if (document.getElementById(scriptID)) {
                 console.warn("Brevo script already loaded");
                 return;
             }
-            let url = saJsBasePath + clientKey;
+            let url = basePath + "sa.js?key=" + clientKey;
             let firstScript = document.getElementsByTagName("script")[0];
             let script = document.createElement("script");
             script.type = "text/javascript";
@@ -42,27 +40,26 @@ let swJsBasePath = "https://sibautomation.com/sw.js?key=";
                 (document.head || document.body).prepend(script);
             }
         } else if (self.ServiceWorkerGlobalScope && self.importScripts) {
-            // Todo Service Worker context
             // eslint-disable-next-line no-undef
-            importScripts(swJsBasePath + clientKey);
+            importScripts(basePath + "sw.js?key=" + clientKey);
         }
     };
 
     let loadSDK = function () {
-        let key = findKey(window.Brevo);
+        let key = findKey(self.Brevo);
         if (key) {
             injectScript(key);
             return;
         }
-        window.Brevo = window.Brevo || [];
-        if (Array.isArray(window.Brevo)) {
-            let originalPush = window.Brevo.push;
-            window.Brevo.push = function () {
-                originalPush.apply(window.Brevo, arguments);
+        self.Brevo = self.Brevo || [];
+        if (Array.isArray(self.Brevo)) {
+            let originalPush = self.Brevo.push;
+            self.Brevo.push = function () {
+                originalPush.apply(self.Brevo, arguments);
                 let key = findKey(Array.from(arguments));
                 if (key) {
                     injectScript(key);
-                    window.Brevo.push = originalPush;
+                    self.Brevo.push = originalPush;
                 }
             };
         }
