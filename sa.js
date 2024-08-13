@@ -47,7 +47,7 @@
         search: "true",
       },
       wonderpush_webkey:
-        "dc2db67e3dd518c66807c15e4a716bd0055309d0667eb8c5de9c12dd3d5537a4",
+        "7e99cfe3bb80ccdcd68f2e7512db2e477496bc19b4aa937948730f598e72b6e7",
     },
     Helper = new hl();
   var iframe, cm;
