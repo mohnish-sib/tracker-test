@@ -11,7 +11,7 @@
 
   <body>
     <div id="root"></div>
-    <script src="http://localhost:8085/sdk-loader.js" async></script>
+    <script src="https://mohnish-sib.github.io/tracker-test/sdk-loader.js" async></script>
     <script>
       window.Brevo = window.Brevo || [];
       Brevo.push([
@@ -19,7 +19,7 @@
         {
           client_key: "nu0eraznmiiz2co01ct9i",
           email_id: "m@gmai.com",/* OPTIONAL: email for identify request*/
-          installation_path: "/path/to/service-worker.js",
+          service_worker_url: "tracker-test/sw.js",
         },
       ]);
     </script>
@@ -32,7 +32,7 @@
         console.log("####", "push function trigger");
       });
       Brevo.push(["track","track","hehe"]);
-      Brevo.push(["setInAppMessagesSuppressed", true]);
+      // Brevo.push(["setInAppMessagesSuppressed", true]);
       // Brevo.push(function(){
       //   Brevo.setInAppMessagesSuppressed(true);
       // });
