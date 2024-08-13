@@ -1,5 +1,5 @@
 "use strict";
-let basePath = "https://mohnish-sib.github.io/tracker-test/";
+var basePath = "https://mohnish-sib.github.io/tracker-test/";
 //let basePathStaging = "https://app-automation-staging.51b.dev/";
 // needs to maintain two different files for staging and production with the respective base path
 
