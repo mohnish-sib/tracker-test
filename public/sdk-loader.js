@@ -21,6 +21,15 @@ let basePath = "https://mohnish-sib.github.io/tracker-test/";
 
   let injectScript = function (clientKey) {
     // same id as legacy ID to avoid double loading
+    console.log(
+      "###SDK",
+      clientKey,
+      self.document,
+      "|",
+      self.ServiceWorkerGlobalScope,
+      "|",
+      self
+    );
     let scriptID = "sendinblue-js";
     if (self.document) {
       if (document.getElementById(scriptID)) {
