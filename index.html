@@ -12,16 +12,17 @@
 
 <body>
   <div id="root"></div>
-  <script src="https://mohnish-sib.github.io/tracker-test/sdk-loader.js" async></script>
+  <script src="https://cdn.brevo.com/js/sdk-staging-loader.js" async></script>
   <script>
     window.Brevo = window.Brevo || [];
     Brevo.push([
       "init",
       {
-        client_key: "nu0eraznmiiz2co01ct9i",
-        email_id: "m@gmai.com",
+        client_key: "p3jz5xlw6id1o7zg16asul7v",
+        email_id: "m@gmail.com",
         /* OPTIONAL: email for identify request*/
-        service_worker_url: "tracker-test/sworker.js?key=nu0eraznmiiz2co01ct9i",
+        // service_worker_url: "sw.js?key=${key}",
+        // frame_url: "brevo-frame.html",
       },
     ]);
   </script>

@@ -18,18 +18,21 @@ var basePath = "https://mohnish-sib.github.io/tracker-test/";
       }
     }
   };
-
+  let scriptInjected = false;
   let injectScript = function (clientKey) {
     // same id as legacy ID to avoid double loading
     console.log(
       "###SDK",
       clientKey,
+      scriptInjected,
       self.document,
       "|",
       self.ServiceWorkerGlobalScope,
       "|",
       self
     );
+    if (scriptInjected) return;
+    scriptInjected = true;
     let scriptID = "sendinblue-js";
     if (self.document) {
       if (document.getElementById(scriptID)) {
@@ -73,5 +76,36 @@ var basePath = "https://mohnish-sib.github.io/tracker-test/";
       };
     }
   };
+  if (typeof window !== "undefined") {
+    // Fix me: find a way not to listen a message on top level window
+    window.addEventListener("message", function (event) {
+        console.log("##=>",event);
+        let data = event.data;
+        if (!(data instanceof Object)) return;
+        if (data.sdk !== "Brevo") return;
+        switch (data.type) {
+            case "ping":
+                if (event.ports && event.ports.length > 0) {
+                    event.ports[0].postMessage({ type: "pong" });
+                }
+                break;
+            case "init": {
+                let initOptions = data.initOpts;
+                if (!initOptions) return;
+                let clientKey = initOptions.client_key;
+                initOptions.do_not_send_page_view=true;
+                window.Brevo = window.Brevo || [];
+                window.Brevo.push(["init", initOptions]);
+                window.Brevo.push(function () {
+                    if (event.ports && event.ports.length > 0) {
+                        event.ports[0].postMessage({ type: "ready" });
+                    }
+                });
+                injectScript(clientKey);
+                break;
+            }
+        }
+    });
+}
   loadSDK();
 })();
