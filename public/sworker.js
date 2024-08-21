@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 importScripts("https://cdn.brevo.com/js/sdk-staging-loader.js");
+console.log("###Service Worker Loaded");
 Brevo.push([
     "init",
     {
